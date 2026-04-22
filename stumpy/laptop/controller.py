@@ -6,7 +6,7 @@ import traceback
 PI_IP = "192.168.50.2"
 PI_PORT = 5000
 
-SEND_INTERVAL = 0.10
+SEND_INTERVAL = 0.05
 BUTTON_COOLDOWN = 0.30
 ARM_SETTLE_TIME = 1.0
 
@@ -14,13 +14,18 @@ PWM_MIN = 1000
 PWM_NEUTRAL = 1500
 PWM_MAX = 2000
 
-SURGE_RANGE = 300
-YAW_RANGE = 180
-HEAVE_RANGE = 260
+# Full-range authority
+SURGE_RANGE = 500
+YAW_RANGE = 500
+HEAVE_RANGE = 500
 
 DEADZONE = 0.08
-RAMP_STEP = 10
 
+# Higher = faster response
+# Lower = smoother/slower ramp
+RAMP_STEP = 18
+
+# Last known working axis layout from your old script
 AXIS_SURGE = 1
 AXIS_YAW = 0
 AXIS_HEAVE = 3
@@ -39,7 +44,7 @@ thrusters = {
 }
 
 def clamp(value, low, high):
-    return max(low, min(high, value))
+    return max(low, min(high, int(round(value))))
 
 def apply_deadzone(value, deadzone):
     if abs(value) < deadzone:
@@ -61,7 +66,8 @@ def send_set(sock, values):
     send_line(sock, line)
 
 def main():
-    print("RUNNING DOLPHIN SET-COMMAND CONTROLLER")
+    print("RUNNING STUMPY SET-COMMAND CONTROLLER")
+
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.connect((PI_IP, PI_PORT))
     print(f"Connected to {PI_IP}:{PI_PORT}")
@@ -86,10 +92,15 @@ def main():
         pygame.event.pump()
         now = time.time()
 
-        surge = apply_deadzone(-js.get_axis(AXIS_SURGE), DEADZONE)
-        yaw = apply_deadzone(js.get_axis(AXIS_YAW), DEADZONE)
-        heave = apply_deadzone(-js.get_axis(AXIS_HEAVE), DEADZONE)
+        raw_surge = js.get_axis(AXIS_SURGE)
+        raw_yaw = js.get_axis(AXIS_YAW)
+        raw_heave = js.get_axis(AXIS_HEAVE)
 
+        surge = apply_deadzone(-raw_surge, DEADZONE)
+        yaw = apply_deadzone(raw_yaw, DEADZONE)
+        heave = apply_deadzone(-raw_heave, DEADZONE)
+
+        # Button handling
         if js.get_button(BUTTON_ARM) and (now - last_button_time["arm"] > BUTTON_COOLDOWN):
             for k in thrusters:
                 thrusters[k] = PWM_NEUTRAL
@@ -114,6 +125,7 @@ def main():
             last_button_time["stop"] = now
             print("Sent: STOP")
 
+        # Horizontal thrusters
         horiz_left_target = clamp(
             PWM_NEUTRAL + int(surge * SURGE_RANGE) + int(yaw * YAW_RANGE),
             PWM_MIN, PWM_MAX
@@ -124,6 +136,7 @@ def main():
             PWM_MIN, PWM_MAX
         )
 
+        # Vertical thrusters
         vert_target = clamp(
             PWM_NEUTRAL + int(heave * HEAVE_RANGE),
             PWM_MIN, PWM_MAX
@@ -147,6 +160,18 @@ def main():
                 send_set(sock, neutral_frame)
             else:
                 send_set(sock, thrusters)
+        else:
+            neutral_frame = {k: PWM_NEUTRAL for k in thrusters}
+            send_set(sock, neutral_frame)
+
+        print(
+            f"ARMED={armed} "
+            f"RAW_SURGE={raw_surge:+.2f} RAW_YAW={raw_yaw:+.2f} RAW_HEAVE={raw_heave:+.2f} "
+            f"SURGE={surge:+.2f} YAW={yaw:+.2f} HEAVE={heave:+.2f} "
+            f"T1={thrusters['T1']} T2={thrusters['T2']} "
+            f"T3={thrusters['T3']} T4={thrusters['T4']} "
+            f"T5={thrusters['T5']} T6={thrusters['T6']}"
+        )
 
         time.sleep(SEND_INTERVAL)
 
