@@ -202,4 +202,4 @@ This project demonstrates:
 
 ## Author
 
-Add your name here.
+Garrett Anderson
