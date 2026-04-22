@@ -47,7 +47,7 @@ STM32
 - Raspberry Pi 4 TCP/UART bridge
 - Split-port architecture for control and telemetry
 - Live telemetry dashboard
-- Minimal MPU6050 IMU integration
+- MPU6050 IMU integration
 - Arming, disarming, stop, and failsafe logic
 - STM32CubeIDE / CubeMX firmware project included
 
