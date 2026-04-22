@@ -109,6 +109,7 @@ STUMPY/
 ├── CMakeLists.txt
 ├── docs/
 │   └── images/
+|   └── firmware_config.md
 ├── firmware/
 │   ├── README.md
 │   ├── CMakeLists.txt
