@@ -163,7 +163,7 @@ This project involved solving several real embedded systems integration issues, 
 
 ---
 
-## Resume Summary
+## Summary
 
 This project demonstrates:
 
