@@ -139,30 +139,6 @@ STUMPY supports real-time manual control of all six thrusters through an Xbox 36
 
 ---
 
-## Images / Documentation
-
-Add project images to:
-
-```text
-docs/images/
-```
-
-Suggested additions:
-- system architecture diagram
-- wiring diagram
-- CubeMX timer/UART configuration screenshots
-- telemetry screenshots
-- physical hardware photos
-
-Example markdown:
-
-```md
-![System Architecture](docs/images/architecture.png)
-![Wiring Diagram](docs/images/wiring.png)
-```
-
----
-
 ## Challenges and Debugging
 
 This project involved solving several real embedded systems integration issues, including:
