@@ -28,3 +28,5 @@ Provides control, telemetry, diagnostics, and analysis tools.
 ```bash
 python telemetry_view.py
 python controller.py
+python thruster_test.py
+python plot_telemetry.py
