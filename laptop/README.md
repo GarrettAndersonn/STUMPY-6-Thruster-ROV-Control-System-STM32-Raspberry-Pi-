@@ -1,6 +1,3 @@
-## `laptop/README.md`
-
-```md
 # Laptop Tools
 
 ## Overview
