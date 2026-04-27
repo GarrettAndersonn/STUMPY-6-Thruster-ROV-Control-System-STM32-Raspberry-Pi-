@@ -10,7 +10,7 @@ The system supports manual control, diagnostics, and IMU-based stabilization.
 
 ---
 
-## 🚀 Key Features
+## Key Features
 
 ### Control System
 - 6-channel bidirectional PWM (1000–2000)
@@ -39,7 +39,7 @@ The system supports manual control, diagnostics, and IMU-based stabilization.
 
 ---
 
-## 🧠 System Architecture
+## System Architecture
 
 
 Laptop Controller
@@ -59,7 +59,7 @@ Laptop Telemetry + Logging
 
 ---
 
-## ⚙️ Control Modes
+## Control Modes
 
 ### MANUAL
 - All thrusters controlled directly via controller input
@@ -83,7 +83,7 @@ Laptop Telemetry + Logging
 
 ---
 
-## 🎯 Control Strategy
+## Control Strategy
 
 Current implementation:
 - **P-based stabilization (proportional control)**
@@ -97,7 +97,7 @@ Future upgrade path:
 
 ---
 
-## 📡 Command Protocol
+## Command Protocol
 
 ### Core Commands
 
@@ -128,7 +128,7 @@ MODE:ASSIST
 
 ---
 
-## 📊 Telemetry
+## Telemetry
 
 Example output:
 
@@ -146,7 +146,7 @@ BX:0.5 BY:-0.3 BZ:0.1
 
 ---
 
-## 🧪 Testing Workflow
+## Testing Workflow
 
 1. Power STM32 (keep still for IMU calibration)
 2. Start Raspberry Pi bridge
@@ -160,7 +160,7 @@ BX:0.5 BY:-0.3 BZ:0.1
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 
 STUMPY/
@@ -174,7 +174,7 @@ STUMPY/
 
 ---
 
-## 🔒 Safety Features
+## Safety Features
 
 - Neutral output when disarmed
 - Command timeout failsafe
@@ -185,7 +185,7 @@ STUMPY/
 
 ---
 
-## 💡 What This Project Demonstrates
+## What This Project Demonstrates
 
 - Embedded systems (STM32 HAL, timers, PWM)
 - Sensor fusion (complementary filter)
@@ -196,7 +196,7 @@ STUMPY/
 
 ---
 
-## 📌 Summary
+## Summary
 
 STUMPY is a complete control system combining:
 - embedded firmware
