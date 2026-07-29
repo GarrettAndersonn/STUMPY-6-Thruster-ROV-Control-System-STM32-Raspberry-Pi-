@@ -1,6 +1,6 @@
-# STUMPY – 6-Thruster ROV Control System
+# 6-Thruster ROV Control System
 
-STUMPY is a real-time embedded control system for a 6-thruster underwater ROV built using:
+real-time embedded control system for a 6-thruster underwater ROV built using:
 
 - **STM32 NUCLEO-F446RE** (real-time control + PWM generation)
 - **Raspberry Pi 4** (TCP ↔ UART communication bridge)
