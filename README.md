@@ -1,6 +1,6 @@
 # 6-Thruster ROV Control System
 
-real-time embedded control system for a 6-thruster underwater ROV built using:
+Real-time embedded control system for a 6-thruster underwater ROV built using:
 
 - **STM32 NUCLEO-F446RE** (real-time control + PWM generation)
 - **Raspberry Pi 4** (TCP ↔ UART communication bridge)
